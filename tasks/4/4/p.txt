@@ -1,0 +1,3 @@
+fio_1 man 16 addres_1 
+fio_2 man 29 addres_2 
+fio_ man 1 addres_ 
