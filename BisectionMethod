@@ -1,0 +1,32 @@
+import java.lang.Math;
+
+public class BisectionMethod {
+    private static final double EPSILON = 1e-6; // Точность
+
+    public static void main(String[] args) {
+        double a = 0; // Левый конец отрезка
+        double b = 3.5; // Правый конец отрезка
+
+        double solution = bisectionMethod(a, b);
+        System.out.println("Приближенное решение: " + solution);
+    }
+
+    public static double bisectionMethod(double a, double b) {
+        double c = (a + b) / 2; // Начальное приближение
+
+        while (Math.abs(f(c)) > EPSILON) {
+            if (f(a) * f(c) < 0) {
+                b = c;
+            } else {
+                a = c;
+            }
+            c = (a + b) / 2;
+        }
+
+        return c;
+    }
+
+    public static double f(double x) {
+        return Math.exp(-x) * Math.sin(Math.PI * x) - Math.tanh(x) + 1;
+    }
+}
