@@ -1,0 +1,32 @@
+import java.lang.Math;
+
+public class NewtonMethod {
+    private static final double EPSILON = 1e-6; // Точность
+
+    public static void main(String[] args) {
+        double a = 0; // Левый конец отрезка
+        double b = 8; // Правый конец отрезка
+
+        double solution = newtonMethod(a, b);
+        System.out.println("Приближенное решение: " + solution);
+    }
+
+    public static double newtonMethod(double a, double b) {
+        double x0 = (a + b) / 2; // Начальное приближение
+
+        while (Math.abs(f(x0)) > EPSILON) {
+            double derivative = fDerivative(x0);
+            x0 = x0 - f(x0) / derivative;
+        }
+
+        return x0;
+    }
+
+    public static double f(double x) {
+        return (x + 1) * Math.cos(x) - x;
+    }
+
+    public static double fDerivative(double x) {
+        return Math.cos(x) - x * Math.sin(x) - 1;
+    }
+}
