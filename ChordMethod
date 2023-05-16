@@ -1,0 +1,36 @@
+import java.lang.Math;
+
+public class ChordMethod {
+    private static final double EPSILON = 1e-6; // Точность
+
+    public static void main(String[] args) {
+        double a = 2; // Левый конец отрезка
+        double b = 15; // Правый конец отрезка
+
+        double solution = chordMethod(a, b);
+        System.out.println("Приближенное решение: " + solution);
+    }
+
+    public static double chordMethod(double a, double b) {
+        double x0 = a; // Начальное приближение x0
+        double x1 = b; // Начальное приближение x1
+
+        double f0 = f(x0);
+        double f1 = f(x1);
+
+        while (Math.abs(f1) > EPSILON) {
+            double x2 = x1 - (f1 * (x1 - x0)) / (f1 - f0);
+
+            x0 = x1;
+            f0 = f1;
+            x1 = x2;
+            f1 = f(x1);
+        }
+
+        return x1;
+    }
+
+    public static double f(double x) {
+        return 2 * Math.sin(Math.log(x * x * x * x)) + (1 / Math.tanh(x));
+    }
+}
