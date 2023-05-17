@@ -1,0 +1,24 @@
+public class RectangleMethod {
+    public static void main(String[] args) {
+        double lowerBound = 0.0;  // Нижний предел интегрирования
+        double upperBound = 5.0;  // Верхний предел интегрирования
+        int n = 100000;  // Количество прямоугольников (чем больше, тем точнее будет результат)
+        
+        double result = integrate(lowerBound, upperBound, n);
+        
+        System.out.println("Приближенное значение интеграла: " + result);
+    }
+    
+    public static double integrate(double a, double b, int n) {
+        double h = (b - a) / n;  // Шаг интегрирования
+        double sum = 0.0;  // Сумма площадей прямоугольников
+        
+        for (int i = 0; i < n; i++) {
+            double x = a + (i + 0.5) * h;  // x-координата середины текущего прямоугольника
+            double fx = Math.exp(-x * x / 2);  // Значение функции в точке x
+            sum += fx;
+        }
+        
+        return h * sum;
+    }
+}
