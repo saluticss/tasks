@@ -1,0 +1,28 @@
+import java.util.function.Function;
+
+public class SimpsonMethod {
+    public static void main(String[] args) {
+        double lowerBound = 0.0;  // Нижний предел интегрирования
+        double upperBound = 0.5;  // Верхний предел интегрирования
+        int n = 1000;  // Количество разбиений (чем больше, тем точнее будет результат)
+
+        Function<Double, Double> function = x -> 4 * x * Math.exp(2 * x);
+
+        double result = integrate(lowerBound, upperBound, n, function);
+
+        System.out.println("Приближенное значение интеграла: " + result);
+    }
+
+    public static double integrate(double a, double b, int n, Function<Double, Double> f) {
+        double h = (b - a) / n;  // Шаг интегрирования
+        double sum = f.apply(a) + f.apply(b);  // Сумма значения функции на концах интервала
+
+        for (int i = 1; i < n; i++) {
+            double x = a + i * h;  // x-координата текущей точки
+            double fx = f.apply(x);  // Значение функции в точке x
+            sum += i % 2 == 0 ? 2 * fx : 4 * fx;  // Учитываем коэффициенты в формуле Симпсона
+        }
+
+        return h / 3 * sum;
+    }
+}
