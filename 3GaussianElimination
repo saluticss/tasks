@@ -1,0 +1,62 @@
+public class GaussianElimination {
+    public static void main(String[] args) {
+        double[][] coefficients = {
+                {1.24, -0.87, -3.17, 0.46},
+                {2.11, -0.45, 1.44, 1.50},
+                {0.48, 1.25, -0.63, 0.35}
+        };
+
+        double[] solution = solve(coefficients);
+
+        System.out.println("Решение системы:");
+        System.out.println("x1 = " + solution[0]);
+        System.out.println("x2 = " + solution[1]);
+        System.out.println("x3 = " + solution[2]);
+    }
+
+    public static double[] solve(double[][] coefficients) {
+        int n = coefficients.length;
+        double[][] augmentedMatrix = new double[n][n + 1];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n + 1; j++) {
+                augmentedMatrix[i][j] = coefficients[i][j];
+            }
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            if (augmentedMatrix[i][i] == 0) {
+                for (int j = i + 1; j < n; j++) {
+                    if (augmentedMatrix[j][i] != 0) {
+                        swapRows(augmentedMatrix, i, j);
+                        break;
+                    }
+                }
+            }
+
+            for (int j = i + 1; j < n; j++) {
+                double ratio = augmentedMatrix[j][i] / augmentedMatrix[i][i];
+                for (int k = i; k < n + 1; k++) {
+                    augmentedMatrix[j][k] -= ratio * augmentedMatrix[i][k];
+                }
+            }
+        }
+
+        double[] solution = new double[n];
+        for (int i = n - 1; i >= 0; i--) {
+            double sum = 0.0;
+            for (int j = i + 1; j < n; j++) {
+                sum += augmentedMatrix[i][j] * solution[j];
+            }
+            solution[i] = (augmentedMatrix[i][n] - sum) / augmentedMatrix[i][i];
+        }
+
+        return solution;
+    }
+
+    public static void swapRows(double[][] matrix, int i, int j) {
+        double[] temp = matrix[i];
+        matrix[i] = matrix[j];
+        matrix[j] = temp;
+    }
+}
