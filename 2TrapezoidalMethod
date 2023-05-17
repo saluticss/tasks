@@ -1,0 +1,27 @@
+public class TrapezoidalMethod {
+    public static void main(String[] args) {
+        double lowerBound = 0.0;  // Нижний предел интегрирования
+        double upperBound = 3.0 / 2.0;  // Верхний предел интегрирования
+        int n = 100000;  // Количество трапеций (чем больше, тем точнее будет результат)
+        
+        double result = integrate(lowerBound, upperBound, n);
+        
+        System.out.println("Приближенное значение интеграла: " + result);
+    }
+    
+    public static double integrate(double a, double b, int n) {
+        double h = (b - a) / n;  // Шаг интегрирования
+        double sum = 0.0;  // Сумма площадей трапеций
+        
+        for (int i = 1; i < n; i++) {
+            double x = a + i * h;  // x-координата текущей точки
+            double fx = (1 + Math.tan(x)) / (1 - Math.tan(x));  // Значение функции в точке x
+            sum += fx;
+        }
+        
+        double fa = (1 + Math.tan(a)) / (1 - Math.tan(a));  // Значение функции на левом конце интервала
+        double fb = (1 + Math.tan(b)) / (1 - Math.tan(b));  // Значение функции на правом конце интервала
+        
+        return h * (0.5 * (fa + fb) + sum);
+    }
+}
