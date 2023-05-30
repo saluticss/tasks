@@ -1,0 +1,20 @@
+import math
+
+def bisection_method(a, b):
+    epsilon = 1e-6  # Точность
+    while abs(b - a) > epsilon:
+        c = (a + b) / 2
+        if f(a) * f(c) < 0:
+            b = c
+        else:
+            a = c
+    return c
+
+def f(x):
+    return math.exp(-x) * math.sin(math.pi * x) - math.tanh(x) + 1
+
+a = 0  # Левый конец отрезка
+b = 3.5  # Правый конец отрезка
+
+solution = bisection_method(a, b)
+print("Приближенное решение:", solution)
