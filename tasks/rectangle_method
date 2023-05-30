@@ -1,0 +1,24 @@
+import math
+
+def f(x):
+    return math.exp(-x**2 / 2)
+
+def rectangle_method(f, a, b, n):
+    h = (b - a) / n  # Вычисляем шаг
+    integral_sum = 0
+
+    for i in range(n):
+        x = a + i * h  # Определяем левую границу текущего прямоугольника
+        integral_sum += f(x) * h  # Добавляем площадь текущего прямоугольника к сумме
+
+    return integral_sum
+
+# Определяем границы интегрирования и количество разбиений
+a = 0
+b = 5
+n = 1000
+
+# Вызываем метод прямоугольников
+integral_value = rectangle_method(f, a, b, n)
+
+print("Значение интеграла:", integral_value)
