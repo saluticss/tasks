@@ -1,0 +1,28 @@
+import math
+
+def newton_method(a, b):
+    epsilon = 1e-6  # Точность
+    x0 = (a + b) / 2  # Начальное приближение
+
+    while abs(f(x0)) > epsilon:
+        derivative = f_derivative(x0)
+        x0 = x0 - f(x0) / derivative
+
+    return x0
+
+def f(x):
+    # Вычисляем значение функции для заданного x
+    return (x + 1) * math.cos(x) - x
+
+def f_derivative(x):
+    # Вычисляем производную функции для заданного x
+    return math.cos(x) - x * math.sin(x) - 1
+
+a = 0  # Левый конец отрезка
+b = 8  # Правый конец отрезка
+
+# Применяем метод Ньютона для решения уравнения
+solution = newton_method(a, b)
+
+# Выводим приближенное решение
+print("Приближенное решение:", solution)
