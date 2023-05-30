@@ -1,0 +1,26 @@
+import math
+
+def f(x):
+    return (1 + math.tan(x)) / (1 - math.tan(x))
+
+def trapezoidal_method(f, a, b, n):
+    h = (b - a) / n  # Вычисляем шаг
+    integral_sum = f(a) + f(b)  # Добавляем значения функции на границах к сумме
+
+    for i in range(1, n):
+        x = a + i * h  # Определяем текущую точку
+        integral_sum += 2 * f(x)  # Добавляем удвоенное значение функции в текущей точке к сумме
+
+    integral_value = (h / 2) * integral_sum  # Умножаем сумму на половину шага
+
+    return integral_value
+
+# Определяем границы интегрирования и количество разбиений
+a = 0
+b = 3/2
+n = 1000
+
+# Вызываем метод трапеций
+integral_value = trapezoidal_method(f, a, b, n)
+
+print("Значение интеграла:", integral_value)
