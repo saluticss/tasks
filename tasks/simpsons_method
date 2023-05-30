@@ -1,0 +1,30 @@
+import math
+
+def f(x):
+    return 4 * x * math.exp(2 * x)
+
+def simpsons_method(f, a, b, n):
+    h = (b - a) / n  # Вычисляем шаг
+    integral_sum = f(a) + f(b)  # Добавляем значения функции на границах к сумме
+
+    for i in range(1, n):
+        x = a + i * h  # Определяем текущую точку
+
+        if i % 2 == 0:
+            integral_sum += 2 * f(x)  # Добавляем удвоенное значение функции в текущей точке
+        else:
+            integral_sum += 4 * f(x)  # Добавляем четыре значение функции в текущей точке
+
+    integral_value = (h / 3) * integral_sum  # Умножаем сумму на (h / 3)
+
+    return integral_value
+
+# Определяем границы интегрирования и количество разбиений
+a = 0
+b = 1/2
+n = 1000
+
+# Вызываем метод Симпсона
+integral_value = simpsons_method(f, a, b, n)
+
+print("Значение интеграла:", integral_value)
